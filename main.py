@@ -38,7 +38,7 @@ def Login(user, psw):
     LoginData = loads(reqLogin.text)['data']
     return LoginData['session_auth_hash'], LoginData['is_premium']
 
-def getServers(isPremium):
+def getServers(isPremium, type="wg"):
     Servers = []
     time, hash = genClAuth()
     reqServers = reqSess.get("https://assets.staticnetcontent.com/serverlist/mob-v2/{}/{}".format(isPremium, hash))
@@ -52,7 +52,10 @@ def getServers(isPremium):
             except KeyError:
                 continue
             for node in nodes:
-                hosts.append(node['hostname'])
+                if type == "wg":
+                    hosts.append(node['ip3'])
+                else:
+                    hosts.append(node['hostname'])
             country['city'].append({'name': '{}-{}'.format(loc['city'], loc['nick']), "pubkey": loc['wg_pubkey'], 'host': hosts})
         if not country['city'] == []:
             Servers.append(country)
