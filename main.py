@@ -70,7 +70,8 @@ def getPSK(accHash, pubKey):
         "session_auth_hash": accHash,
         "session_type_id": "4",
         "time": time,
-        "wg_pubkey": pubKey
+        "wg_pubkey": pubKey,
+        "force_init": 1
     }
     reqPSK = reqSess.post("{}/WgConfigs/init".format(BASE_URL), data=data)
     PSKData = loads(reqPSK.text)['data']
