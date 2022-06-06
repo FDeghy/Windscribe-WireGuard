@@ -117,7 +117,7 @@ PresharedKey = {psk}
 AllowedIPs = 0.0.0.0/0
 Endpoint = {host}:{port}""".format(privkey=privKey, ip=ip, dns=dns, pubkey=city['pubkey'], psk=psk, host=city['host'][0], port=WG_PORT)
 
-        with open("./config/{}-{}.conf".format(server['name'], city['name']), "w") as conf:
+        with open("./config/{}-{}.conf".format(server['name'], city['name']).replace(" ", "_"), "w") as conf:
             conf.write(wgConfig)
         sleep(1)
     i += 1
